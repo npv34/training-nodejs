@@ -1,5 +1,7 @@
+import "reflect-metadata";
 import express, { Request, Response } from 'express';
 import router from './routers/web.router';
+import { AppDataSource } from "./models/DataSource";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -17,6 +19,16 @@ app.set('view engine', 'ejs'); // Set EJS as the engine
 app.set('views', './src/views');   // cau hinh thu muc view
 
 app.use(router)
+
+try {
+    AppDataSource.initialize().then((conn) => {
+        console.log("Data Source has been initialized!")
+    }).catch(err => {
+        console.log(err.message)
+    })
+} catch (error) {
+    console.error("Error during Data Source initialization", error)
+}
 
 
 app.listen(port, () => {
