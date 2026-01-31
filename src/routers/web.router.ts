@@ -1,6 +1,6 @@
 import express, { Router, Request, Response } from "express";
-import { request } from "node:http";
 import AuthController from "../controllers/AuthController";
+import { UserController } from "../controllers/UserController";
 
 const router: Router = express.Router();
 
@@ -14,9 +14,7 @@ router.post("/login", AuthController.handleSubmitLogin)
 
 router.get("/register", AuthController.showFormRegister)
 
-router.get("/users/:id", (request: Request, response: Response) => {
-    const {id} = request.params;
-    response.render("users/detail", {idUser: id})
-})
+router.get("/users/:id/delete", UserController.deleteUser)
+router.get("/users", UserController.showUserList)
 
 export default router;
