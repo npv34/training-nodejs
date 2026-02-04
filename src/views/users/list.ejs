@@ -12,37 +12,95 @@
 
 <body>
     <div class="container">
-       <%- include('../layouts/Navbar.ejs') %>
+        <%- include('../layouts/Navbar.ejs') %>
 
-        <div class="card mt-3">
-            <div class="card-body">
-                <h5 class="card-title">User List</h5>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Phone</th>
-                            <th scope="col">Role</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% users.forEach((item, index) => {  %>
-                        <tr>
-                            <th scope="row"><%= index + 1 %></th>
-                            <td><%= item.name %></td>
-                            <td><%= item.email %></td>
-                            <td><%= item.phone %></td>
-                            <td><%= item.role.name %></td>
-                            <td>
-                                <a onclick="return confirm('Are you sure?')" href="/users/<%= item.id %>/delete" class="btn btn-danger">Delete</a>
-                            </td>
-                        </tr>
-                        <% }) %>
-                    </tbody>
-                </table>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title">User List</h5>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            Create User
+                        </button>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Role</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% users.forEach((item, index)=> { %>
+                                <tr>
+                                    <th scope="row">
+                                        <%= index + 1 %>
+                                    </th>
+                                    <td>
+                                        <%= item.name %>
+                                    </td>
+                                    <td>
+                                        <%= item.email %>
+                                    </td>
+                                    <td>
+                                        <%= item.phone %>
+                                    </td>
+                                    <td>
+                                        <%= item.role.name %>
+                                    </td>
+                                    <td>
+                                        <a onclick="return confirm('Are you sure?')" href="/users/<%= item.id %>/delete"
+                                            class="btn btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">User Create</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/users/create" method="post">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Name</label>
+                            <input type="text" class="form-control" name="name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Phone</label>
+                            <input type="text" class="form-control" name="phone">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input type="password" class="form-control" name="password">
+                        </div>
+                        <select class="form-select" aria-label="Default select example" name="role">
+                            <% roles.forEach((item, index)=> { %>
+                                <option value="<%= item.id %>">
+                                    <%= item.name %>
+                                </option>
+                                <% }) %>
+                        </select>
+                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
