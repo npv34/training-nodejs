@@ -1,12 +1,11 @@
 import express, { Router, Request, Response } from "express";
 import AuthController from "../controllers/AuthController";
 import { UserController } from "../controllers/UserController";
+import { HomeController } from "../controllers/HomeController";
 
 const router: Router = express.Router();
 
-router.get("/", (request: Request, response: Response) => {
-    response.render("home", { name: "Quan" })
-})
+router.get("/", HomeController.showHome)
 
 router.get("/login", AuthController.showFormLogin)
 router.post("/login", AuthController.handleSubmitLogin)
