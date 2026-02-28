@@ -20,7 +20,7 @@ export class UserController {
 
     static async deleteUser(request: Request, response: Response) {
         try {
-            UserService.deleteById(Number(request.params.id));
+            await UserService.deleteById(Number(request.params.id));
             response.redirect("/users")
         } catch (err) {
             response.redirect("/404")

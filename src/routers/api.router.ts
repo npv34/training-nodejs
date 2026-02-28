@@ -6,5 +6,6 @@ const apiRouter: Router = express.Router();
 
 apiRouter.get("/users", UserApiController.getAllUser);
 apiRouter.post("/users", UserApiController.storeUser);
+apiRouter.delete("/users/:id", UserApiController.deleteUser);
 
 export default apiRouter;
