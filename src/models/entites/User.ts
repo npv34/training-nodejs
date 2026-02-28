@@ -17,7 +17,7 @@ export class User {
         nullable: false
     })
     phone: string;
-    @Column()
+    @Column({ select: false })
     password: string;
     @Column({
         default: false

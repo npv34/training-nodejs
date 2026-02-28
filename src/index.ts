@@ -1,8 +1,9 @@
 import "dotenv/config";
 import "reflect-metadata";
-import express, { Request, Response } from 'express';
+import express, { application, Request, Response } from 'express';
 import router from './routers/web.router';
 import { AppDataSource } from "./models/DataSource";
+import apiRouter from "./routers/api.router";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -19,7 +20,8 @@ app.use(express.static('public'))
 app.set('view engine', 'ejs'); // Set EJS as the engine
 app.set('views', './src/views');   // cau hinh thu muc view
 
-app.use(router)
+app.use("/api",apiRouter)
+app.use("/",router)
 
 try {
     AppDataSource.initialize().then((conn) => {
