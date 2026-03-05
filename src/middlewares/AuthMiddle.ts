@@ -16,10 +16,11 @@ const authMiddle = (request: Request, response: Response, next: NextFunction) =>
         }
         // kiem tra xem user trong decode co ton tai trong he thong khong
         const user = await UserService.findByEmail(decode.user.email);
+        console.log(user);
         if (!user) {
             return response.json(errorHandler(401, "unauthorized"));
         }
-
+        response.locals.user = user;
         next();
     })
 }

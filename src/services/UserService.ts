@@ -37,6 +37,11 @@ export class UserService {
     }
 
     static async findByEmail(email: string) {
-        return this.userRepository.findOneBy({ email: email });
+        return this.userRepository.findOne({
+            where: { email: email },
+            relations: {
+                role: true
+            }
+        });
     }
 }
